@@ -65,7 +65,7 @@ then
 
 		# /etc/apt/sources.d/ppa_name.list file creation
         ppa_d_name=`echo $ppa_name | grep -oE "[^/]+$"`
-        ppd_d=/etc/apt/sources.list.d/$ppa_d_name.list
+        ppd_d=/etc/apt/sources.list.d/$ppa_usr-$ppa_d_name.list
         touch $ppd_d
 
 		# detect codename
@@ -99,7 +99,7 @@ then
 		key=`cat /tmp/${NAME}_apt_add_key.txt | cut -d":" -f6 | cut -d" " -f3`
 		apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $key
 		rm -rf /tmp/${NAME}_apt_add_key.txt
-		mv /etc/apt/trusted.gpg /etc/apt/trusted.gpg.d/$ppa_d_name.gpg
+		mv /etc/apt/trusted.gpg /etc/apt/trusted.gpg.d/$ppa_usr-$ppa_d_name.gpg
 
 	# print result
 	echo -e "\n------------------------------------------------------------"
