@@ -1,7 +1,11 @@
 #!/bin/bash
 
-# Debian PPA Utility - Utility which allows you to add PPA's on Debian.
-# It adds "add-apt-repository" binary which allows you to add PPA's. 
+# add-ppa-debian
+#
+# Usage : sudo ./add-ppa-debian ppa:user/ppa-name
+#
+# This script is modified by Davius from the original created by Adnan Hozic.
+# This utility helps installing repository from Launchpad under Debian
 #
 # Copyright © 2014 Adnan Hodzic <adnan@hodzic.org>
 #
@@ -17,8 +21,8 @@
 # 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-# add copyright
-# author, etc
+# 
+
 
 # Root checker
 if [[ $EUID -ne 0 ]]; then
@@ -26,6 +30,11 @@ if [[ $EUID -ne 0 ]]; then
     echo -e "add-apt-repository: must be run as root" 1>&2
     echo -e "\n---------------------------------------\n"
 	exit 1
+fi
+
+# Script need curl
+if test -x "$(command -v curl 2>/dev/null)"; then
+  apt install curl
 fi
 
 # action
@@ -69,7 +78,12 @@ then
         touch $ppd_d
 
 		# detect codename
-		if [ "$(lsb_release -cs)" == "bookworm" ];
+		
+		if [ "$(lsb_release -cs)" == "bullseye" ];
+		then
+    		codename=focal
+
+		elif [ "$(lsb_release -cs)" == "bookworm" ];
 		then
     		codename=kinetic
 
@@ -83,9 +97,7 @@ then
 
 		elif [ "$(lsb_release -cs)" == "sid" ];
 		then
-			codename=lunar
-
-
+		codename=lunar
 
 		else 
     		echo "Unsupported Debian version \(>= Wheezy only\)"
