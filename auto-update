@@ -11,4 +11,4 @@ apt-get clean
 apt-get autoclean
 echo "
 Fin de la mise à jour la mise à jour : " >> /var/log/$loguser.auto-update.txt
-date >> /home/$loguser.auto-update.txt
+date >> /var/log/$loguser.auto-update.txt
