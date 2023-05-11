@@ -1,14 +1,14 @@
 #!/bin/sh
-echo "Début de la mise à jour la mise à jour : " > /home/davius/.auto-update.txt
-date >> /home/davius/.auto-update.txt
+echo "Début de la mise à jour la mise à jour : " > /var/log/$LOGNAME.auto-update.txt
+date >> /var/log/$LOGNAME.auto-update.txt
 apt-get update
-apt list --upgradable >> /home/davius/.auto-update.txt 2>&1
-#apt-get full-upgrade -y >> /home/davius/.auto-update.txt 2>&1
-DEBIAN_FRONTEND=noninteractive UCF_FORCE_CONFFOLD=YES apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -qq --force-yes full-upgrade >> /home/davius/.auto-update.txt 2>&1
-apt-get autoremove --purge -y >> /home/davius/.auto-update.txt 2>&1
-deb-get upgrade >> /home/davius/.auto-update.txt 2>&1
+apt list --upgradable >> /var/log/$LOGNAME.auto-update.txt 2>&1
+#apt-get full-upgrade -y >> /var/log/$LOGNAME.auto-update.txt 2>&1
+DEBIAN_FRONTEND=noninteractive UCF_FORCE_CONFFOLD=YES apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" -qq --force-yes full-upgrade >> /var/log/$LOGNAME.auto-update.txt 2>&1
+apt-get autoremove --purge -y >> /var/log/$LOGNAME.auto-update.txt 2>&1
+deb-get upgrade >> /var/log/$LOGNAME.auto-update.txt 2>&1
 apt-get clean
 apt-get autoclean
 echo "
-Fin de la mise à jour la mise à jour : " >> /home/davius/.auto-update.txt
-date >> /home/davius/.auto-update.txt
+Fin de la mise à jour la mise à jour : " >> /var/log/$LOGNAME.auto-update.txt
+date >> /var/log/$LOGNAME.auto-update.txt
